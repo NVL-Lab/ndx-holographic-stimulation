@@ -1,0 +1,12 @@
+namespaces:
+- author:
+  - Andrea
+  - Rishitesh
+  contact:
+  - nvl2@uab.edu
+  doc: Extension to include Holographic Stimulation experiments
+  name: ndx-holostim
+  schema:
+  - namespace: core
+  - source: ndx-holostim.extensions.yaml
+  version: 0.1.0
