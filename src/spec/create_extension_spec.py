@@ -70,14 +70,14 @@ def main():
         doc="An extension of OptogeneticSeries to include the spatial patterns for the photostimulation.",
         attributes=[NWBAttributeSpec(name="unit", doc="SI unit of data", dtype="text", default_value="watts",required=False)],
         datasets=[NWBDatasetSpec(name="data", doc="value of each of the conditions to be met by the cursor for it to be considered hitting a target", dtype="numeric", dims=["num_times", "num_rois"], shape=([None], [None])),
-                  NWBDatasetSpec(name='image_mask_roi', doc=("ROIs designated using a mask of size [width, height] (2D recording) or [width, height, depth] (3D recording), where for a given pixel a value of 1 indicates belonging to the ROI. The depth value may represent to which plane the roi belonged to"), quantity='*', dims=(('x', 'y'), ('x', 'y', 'z')), shape=([None] * 2, [None] * 3)),
-                  NWBDatasetSpec(name='center_rois', doc=("ROIs designated as a list specifying the pixel and radio ([x1, y1, r1], or voxel ([x1, y1, z1, r1]) of each ROI, where the items in the list are the  coordinates of the center of the ROI and the size of  the Roi given in radio size. The depth value may  represent to which plane the roi belonged to"), quantity='*', dims=(('number_rois', '3'), ('number_rois', '4')), shape=([None] * 2, [None] * 3)),
-                  NWBDatasetSpec(name='pixel_rois', doc=("ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where the items in the list are each of the pixels belonging to the roi"), quantity='*', dims=(('number_rois', 'number_pixels', '2'), ('number_rois', 'number_pixels', '3')), shape=([None] * 2, [None] * 3))],
-        links=[NWBLinkSpec(name="site", doc="link to the patterned stimulus site", target_type="PatternedOptogeneticStimulusSite", required=True),
-               NWBLinkSpec(name="stimulus_pattern", doc="link to the stimulus pattern", target_type="OptogeneticStimulusPattern", required=False),
-               NWBLinkSpec(name="device", doc="link to the device used to generate the photostimulation", target_type="Device", required=True),
-               NWBLinkSpec(name="spatial_light_modulator", doc="link to the spatial modulator device", target_type="SpatialLightModulator", required=False),
-               NWBLinkSpec(name="light_source", doc="link to the light source", target_type="LightSource", required=False)]
+                  NWBDatasetSpec(name='image_mask_roi', doc=("ROIs designated using a mask of size [width, height] (2D recording) or [width, height, depth] (3D recording), where for a given pixel a value of 1 indicates belonging to the ROI. The depth value may represent to which plane the roi belonged to"), quantity='?', dims=(('x', 'y'), ('x', 'y', 'z')), shape=([None] * 2, [None] * 3)),
+                  NWBDatasetSpec(name='center_rois', doc=("ROIs designated as a list specifying the pixel and radio ([x1, y1, r1], or voxel ([x1, y1, z1, r1]) of each ROI, where the items in the list are the  coordinates of the center of the ROI and the size of  the Roi given in radio size. The depth value may  represent to which plane the roi belonged to"), quantity='?', dims=(('number_rois', '3'), ('number_rois', '4')), shape=([None] * 2, [None] * 3)),
+                  NWBDatasetSpec(name='pixel_rois', doc=("ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where the items in the list are each of the pixels belonging to the roi"), quantity='?', dims=(('number_rois', 'number_pixels', '2'), ('number_rois', 'number_pixels', '3')), shape=([None] * 2, [None] * 3))],
+        links=[NWBLinkSpec(name="site", doc="link to the patterned stimulus site", target_type="PatternedOptogeneticStimulusSite"),
+               NWBLinkSpec(name="stimulus_pattern", doc="link to the stimulus pattern", target_type="OptogeneticStimulusPattern"),
+               NWBLinkSpec(name="device", doc="link to the device used to generate the photostimulation", target_type="Device"),
+               NWBLinkSpec(name="spatial_light_modulator", doc="link to the spatial modulator device", target_type="SpatialLightModulator"),
+               NWBLinkSpec(name="light_source", doc="link to the light source", target_type="LightSource")]
     )
 
     # Light Modulator and Light Source devices
@@ -98,7 +98,7 @@ def main():
                     NWBAttributeSpec(name="filter_description", doc="description of the filter", dtype="text", required=True),
                     NWBAttributeSpec(name="peak_power", doc="peak power of the stimulation in W", dtype="float32", required=False),
                     NWBAttributeSpec(name="intensity", doc="intensity of the excitation in W/m^2", dtype="float32", required=False),
-                    NWBAttributeSpec(name="exposure_time", doc="exposure time of the sample", dtype="", required=False),
+                    NWBAttributeSpec(name="exposure_time", doc="exposure time of the sample", dtype="float32", required=False),
                     NWBAttributeSpec(name="pulse_rate", doc="pulse rate of the light source, if the light source is a pulsed laser", dtype="float32", required=False)]
         )
 
