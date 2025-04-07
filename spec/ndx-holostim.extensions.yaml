@@ -65,8 +65,8 @@ groups:
     - num_times
     - num_rois
     shape:
-    - - null
-    - - null
+    - null
+    - null
     doc: value of each of the conditions to be met by the cursor for it to be considered
       hitting a target
   - name: image_mask_roi
