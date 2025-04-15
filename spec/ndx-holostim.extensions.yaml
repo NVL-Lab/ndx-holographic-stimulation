@@ -1,8 +1,176 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: An extension of ElectricalSeries to include the tetrode ID for each time series.
+- neurodata_type_def: OptogeneticStimulusPattern
+  neurodata_type_inc: LabMetaData
+  doc: Holographic excitation single ROI
   attributes:
-  - name: trode_id
-    dtype: int32
-    doc: The tetrode ID.
+  - name: description
+    dtype: text
+    doc: description of the stimulus pattern
+  - name: duration
+    dtype: float32
+    doc: the time duration for a single stimulus, in sec
+  - name: number_of_stimulus_presentation
+    dtype: int8
+    doc: number of times the patterned stimulus is presented in one time interval
+  - name: inter_stimulus_interval
+    dtype: float32
+    doc: duration of the interval between each individual stimulus, in sec
+- neurodata_type_def: SpiralScanning
+  neurodata_type_inc: OptogeneticStimulusPattern
+  doc: table of parameters defining the spiral scanning beam pattern
+  attributes:
+  - name: diameter
+    dtype: float32
+    doc: spiral diameter of each spot, in m
+  - name: height
+    dtype: float32
+    doc: spiral height of each spot, in m
+  - name: number_of_revolutions
+    dtype: int8
+    doc: number of turns within a spiral
+- neurodata_type_def: TemporalFocusing
+  neurodata_type_inc: OptogeneticStimulusPattern
+  doc: table of parameters defining the temporal focusing beam-shaping
+  attributes:
+  - name: lateral_point_spread_function
+    dtype: text
+    doc: estimated lateral spatial profile or point spread function, expressed as
+      mean [um] ± s.d [um]
+  - name: axial_point_spread_function
+    dtype: text
+    doc: estimated axial spatial profile or point spread function, expressed as mean
+      [um] ± s.d [um]
+- neurodata_type_def: PatternedOptogeneticStimulusSite
+  neurodata_type_inc: OptogeneticStimulusSite
+  doc: An extension of OptogeneticStimulusSite to include the geometrical representation
+    for the stimulus.
+  attributes:
+  - name: effector
+    dtype: text
+    doc: Light-activated effector protein expressed by the targeted cell (eg. ChR2)
+    required: false
+- neurodata_type_def: PatternedOptogeneticSeries
+  neurodata_type_inc: TimeSeries
+  doc: An extension of OptogeneticSeries to include the spatial patterns for the photostimulation.
+  attributes:
+  - name: unit
+    dtype: text
+    default_value: watts
+    doc: SI unit of data
+    required: false
+  datasets:
+  - name: data
+    dtype: numeric
+    dims:
+    - num_times
+    - num_rois
+    shape:
+    - - null
+    - - null
+    doc: value of each of the conditions to be met by the cursor for it to be considered
+      hitting a target
+  - name: image_mask_roi
+    dims:
+    - - x
+      - y
+    - - x
+      - y
+      - z
+    shape:
+    - - null
+      - null
+    - - null
+      - null
+      - null
+    doc: ROIs designated using a mask of size [width, height] (2D recording) or [width,
+      height, depth] (3D recording), where for a given pixel a value of 1 indicates
+      belonging to the ROI. The depth value may represent to which plane the roi belonged
+      to
+    quantity: '?'
+  - name: center_rois
+    dims:
+    - - number_rois
+      - '3'
+    - - number_rois
+      - '4'
+    shape:
+    - - null
+      - null
+    - - null
+      - null
+      - null
+    doc: ROIs designated as a list specifying the pixel and radio ([x1, y1, r1], or
+      voxel ([x1, y1, z1, r1]) of each ROI, where the items in the list are the  coordinates
+      of the center of the ROI and the size of  the Roi given in radio size. The depth
+      value may  represent to which plane the roi belonged to
+    quantity: '?'
+  - name: pixel_rois
+    dims:
+    - - number_rois
+      - number_pixels
+      - '2'
+    - - number_rois
+      - number_pixels
+      - '3'
+    shape:
+    - - null
+      - null
+    - - null
+      - null
+      - null
+    doc: ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1,
+      y1, z1]) of each ROI, where the items in the list are each of the pixels belonging
+      to the roi
+    quantity: '?'
+  links:
+  - name: site
+    target_type: PatternedOptogeneticStimulusSite
+    doc: link to the patterned stimulus site
+  - name: stimulus_pattern
+    target_type: OptogeneticStimulusPattern
+    doc: link to the stimulus pattern
+  - name: device
+    target_type: Device
+    doc: link to the device used to generate the photostimulation
+  - name: spatial_light_modulator
+    target_type: SpatialLightModulator
+    doc: link to the spatial modulator device
+  - name: light_source
+    target_type: LightSource
+    doc: link to the light source
+- neurodata_type_def: SpatialLightModulator
+  neurodata_type_inc: Device
+  doc: An extension of Device to include the Spatial Light Modulator metadata
+  attributes:
+  - name: model
+    dtype: text
+    doc: Model of the Spatial Light Modulator
+  - name: resolution
+    dtype: float32
+    doc: Resolution of the Spatial Light Modulator in um
+- neurodata_type_def: LightSource
+  neurodata_type_inc: Device
+  doc: An extension of Device to include the Light Source metadata
+  attributes:
+  - name: stimulation_wavelenght
+    dtype: float32
+    doc: stimulation wavelength in nm
+  - name: filter_description
+    dtype: text
+    doc: description of the filter
+  - name: peak_power
+    dtype: float32
+    doc: peak power of the stimulation in W
+    required: false
+  - name: intensity
+    dtype: float32
+    doc: intensity of the excitation in W/m^2
+    required: false
+  - name: exposure_time
+    dtype: float32
+    doc: exposure time of the sample
+    required: false
+  - name: pulse_rate
+    dtype: float32
+    doc: pulse rate of the light source, if the light source is a pulsed laser
+    required: false
