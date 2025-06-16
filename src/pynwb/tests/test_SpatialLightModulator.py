@@ -23,7 +23,7 @@ class TestSpatialLightModulatorRoundtrip(TestCase):
         self.nwbfile = NWBFile(
             session_description="SLM metadata test",
             identifier="SLM-001",
-            session_start_time=datetime.now(),
+            session_start_time=datetime.now().astimezone(),
         )
         self.path = "test_spatial_light_modulator.nwb"
 

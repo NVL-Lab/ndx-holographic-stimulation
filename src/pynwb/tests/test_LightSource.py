@@ -1,13 +1,10 @@
 from datetime import datetime
-from pynwb import NWBHDF5IO, NWBFile
+from pynwb import NWBHDF5IO
 from pynwb.testing import TestCase, remove_test_file
-from pynwb.file import LabMetData
 from ndx_holostim import LightSource
+from pynwb.testing.mock.file import mock_NWBFile
 
-
-class MockDevice:
-    def __init__(self, name):
-        self.name = name
+import tempfile
 
 
 class TestLightSourceConstructor(TestCase):
@@ -33,12 +30,12 @@ class TestLightSourceConstructor(TestCase):
 
 class TestLightSourceRoundtrip(TestCase):
     def setUp(self):
-        self.nwbfile = NWBFile(
+        self.nwbfile = mock_NWBFile(
             session_description="Light Source metadata test",
             identifier="LS-001",
-            session_start_time=datetime.now(),
+            session_start_time=datetime.now().astimezone(),
         )
-        self.path = "test_light_source.nwb"
+        self.path = "test_lightsource.nwb"
 
     def tearDown(self):
         remove_test_file(self.path)
@@ -54,9 +51,8 @@ class TestLightSourceRoundtrip(TestCase):
             pulse_rate=210.0
         )
 
-        # Register mock device
-        self.nwbfile.add_device(MockDevice("mock_device"))
         self.nwbfile.add_device(light_source)  # LightSource extends Device
+
 
         with NWBHDF5IO(self.path, mode="w") as io:
             io.write(self.nwbfile)
@@ -65,3 +61,15 @@ class TestLightSourceRoundtrip(TestCase):
             read_nwbfile = io.read()
             read_ls = read_nwbfile.devices["LS-Red"]
             self.assertContainerEqual(light_source, read_ls)
+            
+            #to print out the output add "-s" to the pytest command line
+            print("\n=== LabMetaData Contents ===")
+            for name, meta in read_nwbfile.devices.items(): 
+                
+                print(f"Device Name: {name}")
+                print(f"Stimulation wavelenght: {meta.stimulation_wavelenght}")
+                print(f"Filter description: {meta.filter_description}")
+                print(f"Peak power: {meta.peak_power}")
+                print(f"Intensity: {meta.intensity}")
+                print(f"Exposure time: {meta.exposure_time}\n")
+                print(f"Pulse rate: {meta.pulse_rate}")
