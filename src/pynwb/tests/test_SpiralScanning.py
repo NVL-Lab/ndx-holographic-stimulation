@@ -68,5 +68,4 @@ class TestSpiralScanningRoundtrip(TestCase):
         with NWBHDF5IO(self.path, mode="r", load_namespaces=True) as io:
             read_nwbfile = io.read()
             read_spiral = read_nwbfile.lab_meta_data["spiral1"]
-
             self.assertContainerEqual(spiral, read_spiral)

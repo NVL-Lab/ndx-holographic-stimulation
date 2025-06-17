@@ -1,12 +1,8 @@
-
-
-import numpy as np
 from datetime import datetime
 from pynwb import NWBHDF5IO
 from pynwb.testing import TestCase, remove_test_file
 from pynwb.testing.mock.file import mock_NWBFile
-from datetime import datetime
-import unittest
+
 
 from ndx_holostim import OptogeneticStimulusPattern
 
@@ -36,7 +32,7 @@ class TestOptogeneticStimulusPatternConstructor(TestCase):
         self.assertEqual(pattern.inter_stimulus_interval, 0.1)
 
 
-class TestOptogeneticStimulusPatternRoundtrip(unittest.TestCase):
+class TestOptogeneticStimulusPatternRoundtrip(TestCase):
     """Roundtrip test for OptogeneticStimulusPattern."""
 
     def setUp(self):
@@ -70,16 +66,7 @@ class TestOptogeneticStimulusPatternRoundtrip(unittest.TestCase):
         # Read back and print contents
         with NWBHDF5IO(self.path, mode='r', load_namespaces=True) as io:
             read_nwbfile = io.read()
-
             read_pattern = read_nwbfile.lab_meta_data['stim1']
-            
-            print("\n=== LabMetaData Contents ===")
-            for name, meta in read_nwbfile.lab_meta_data.items():
-                print(f"Metadata name: {name}")
-                print(f"  Description: {meta.description}")
-                print(f"  Duration: {meta.duration}")
-                print(f"  Num Stimulus Presentations: {meta.number_of_stimulus_presentation}")
-                print(f"  Inter-Stimulus Interval: {meta.inter_stimulus_interval}\n")
-        
+            self.assertContainerEqual(pattern, read_pattern)
             
             

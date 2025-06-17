@@ -11,7 +11,7 @@ class TestTemporalFocusingConstructor(TestCase):
         self.nwbfile = NWBFile(
             session_description="test TemporalFocusing",
             identifier="TF123",
-            session_start_time=datetime.now(),
+            session_start_time=datetime.now().astimezone(),
         )
 
     def test_constructor(self):
@@ -39,7 +39,7 @@ class TestTemporalFocusingRoundtrip(TestCase):
         self.nwbfile = NWBFile(
             session_description="test TemporalFocusing roundtrip",
             identifier="TF456",
-            session_start_time=datetime.now(),
+            session_start_time=datetime.now().astimezone(),
         )
         self.path = "test_temporal_focusing.nwb"
 

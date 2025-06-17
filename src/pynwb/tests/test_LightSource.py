@@ -4,14 +4,12 @@ from pynwb.testing import TestCase, remove_test_file
 from ndx_holostim import LightSource
 from pynwb.testing.mock.file import mock_NWBFile
 
-import tempfile
-
 
 class TestLightSourceConstructor(TestCase):
     def test_constructor(self):
         light_source = LightSource(
             name="Testing LightSource",
-            stimulation_wavelenght=12.0,
+            stimulation_wavelength=12.0,
             filter_description="test 450–490 nm",
             peak_power=1.5,
             intensity=1.26,
@@ -20,7 +18,7 @@ class TestLightSourceConstructor(TestCase):
         )
 
         self.assertEqual(light_source.name, "Testing LightSource")
-        self.assertEqual(light_source.stimulation_wavelenght, 12.0)
+        self.assertEqual(light_source.stimulation_wavelength, 12.0)
         self.assertEqual(light_source.filter_description, "test 450–490 nm")
         self.assertEqual(light_source.peak_power, 1.5)
         self.assertEqual(light_source.intensity, 1.26)
@@ -43,7 +41,7 @@ class TestLightSourceRoundtrip(TestCase):
     def test_roundtrip(self):
         light_source = LightSource(
             name="LS-Red",
-            stimulation_wavelenght=635.0,
+            stimulation_wavelength=635.0,
             filter_description="Longpass 600 nm",
             peak_power=2.0,
             intensity=9.35,
@@ -62,14 +60,3 @@ class TestLightSourceRoundtrip(TestCase):
             read_ls = read_nwbfile.devices["LS-Red"]
             self.assertContainerEqual(light_source, read_ls)
             
-            #to print out the output add "-s" to the pytest command line
-            print("\n=== LabMetaData Contents ===")
-            for name, meta in read_nwbfile.devices.items(): 
-                
-                print(f"Device Name: {name}")
-                print(f"Stimulation wavelenght: {meta.stimulation_wavelenght}")
-                print(f"Filter description: {meta.filter_description}")
-                print(f"Peak power: {meta.peak_power}")
-                print(f"Intensity: {meta.intensity}")
-                print(f"Exposure time: {meta.exposure_time}\n")
-                print(f"Pulse rate: {meta.pulse_rate}")

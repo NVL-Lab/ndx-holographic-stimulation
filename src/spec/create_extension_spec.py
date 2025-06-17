@@ -66,11 +66,12 @@ def main():
 
     PatternedOptogeneticSeries = NWBGroupSpec(
         neurodata_type_def="PatternedOptogeneticSeries", 
-        neurodata_type_inc="TimeSeries", 
+        neurodata_type_inc="NWBDataInterface", 
         doc="An extension of OptogeneticSeries to include the spatial patterns for the photostimulation.",
-        attributes=[NWBAttributeSpec(name="unit", doc="SI unit of data", dtype="text", default_value="watts",required=False)],
-        datasets=[NWBDatasetSpec(name="data", doc="value of each of the conditions to be met by the cursor for it to be considered hitting a target", dtype="numeric", dims=["num_times", "num_rois"], shape=([None], [None])),
-                  NWBDatasetSpec(name='image_mask_roi',
+        attributes=[NWBAttributeSpec(name="description", doc="description of the series", dtype="text", required=False),
+                    NWBAttributeSpec(name="rate", doc="series framerate", dtype="float32", required=False),
+                    NWBAttributeSpec(name="unit", doc="SI unit of data", dtype="text", default_value="watts",required=False)],
+        datasets=[NWBDatasetSpec(name='image_mask_roi',
                                 doc=("ROIs designated using a mask of size [width, height] "
                                     "(2D recording) or [width, height, depth] (3D recording),"
                                     " where for a given pixel a value of 1 indicates belonging"
@@ -119,7 +120,7 @@ def main():
         neurodata_type_def="LightSource", 
         neurodata_type_inc="Device", 
         doc= "An extension of Device to include the Light Source metadata",
-        attributes=[NWBAttributeSpec(name="stimulation_wavelenght", doc="stimulation wavelength in nm", dtype="float32", required=True),
+        attributes=[NWBAttributeSpec(name="stimulation_wavelength", doc="stimulation wavelength in nm", dtype="float32", required=True),
                     NWBAttributeSpec(name="filter_description", doc="description of the filter", dtype="text", required=True),
                     NWBAttributeSpec(name="peak_power", doc="peak power of the stimulation in W", dtype="float32", required=False),
                     NWBAttributeSpec(name="intensity", doc="intensity of the excitation in W/m^2", dtype="float32", required=False),

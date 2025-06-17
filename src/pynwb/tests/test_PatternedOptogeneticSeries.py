@@ -60,14 +60,12 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         self.nwbfile.add_ogen_site(self.site)
 
     def test_constructor(self):
-        data = np.random.rand(100, 3)
-        image_mask_roi = np.ones((4, 4))
-        center_rois = np.ones((4, 5, 6, 7))
-        pixel_rois = np.ones((4, 5, 6))
+        image_mask_roi=np.ones((4, 4))
+        center_rois=np.ones((4, 5, 6, 7))
+        pixel_rois=np.ones((4, 5, 6))
 
         pos = PatternedOptogeneticSeries(
             name="photostim series",
-            data=data,
             rate=10.0,
             unit="watts",
             description="Patterned photostimulation data",
@@ -85,7 +83,6 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         self.assertEqual(pos.rate, 10.0)
         self.assertEqual(pos.unit, "watts")
         self.assertEqual(pos.description, "Patterned photostimulation data")
-        np.testing.assert_array_equal(pos.data, data)
         np.testing.assert_array_equal(pos.image_mask_roi, image_mask_roi)
         np.testing.assert_array_equal(pos.center_rois, center_rois)
         np.testing.assert_array_equal(pos.pixel_rois, pixel_rois)
@@ -147,14 +144,12 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
         remove_test_file(self.path)
 
     def test_roundtrip(self):
-        data = np.random.rand(100, 3)
-        image_mask_roi = np.ones((4, 4))
-        center_rois = np.ones((4, 5, 6, 7))
-        pixel_rois = np.ones((4, 5, 6))
+        image_mask_roi=np.ones((4, 4))
+        center_rois=np.ones((4, 5, 6, 7))
+        pixel_rois=np.ones((4, 5, 6))
 
         pos = PatternedOptogeneticSeries(
             name="photostim_series",
-            data=data,
             rate=10.0,
             unit="watts",
             description="Patterned photostimulation data",
