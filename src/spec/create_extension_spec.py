@@ -22,119 +22,206 @@ def main():
         ],
     )
     ns_builder.include_namespace("core")
-    
-     # Optogenetic patterns group
+
+    # Optogenetic patterns group
 
     OptogeneticStimulusPattern = NWBGroupSpec(
-        neurodata_type_def="OptogeneticStimulusPattern",    
-        neurodata_type_inc="LabMetaData", 
+        neurodata_type_def="OptogeneticStimulusPattern",
+        neurodata_type_inc="LabMetaData",
         doc="Holographic excitation single ROI",
-        attributes=[NWBAttributeSpec(name="description", doc="description of the stimulus pattern", dtype="text", required=True),
-                    NWBAttributeSpec(name="duration", doc="the time duration for a single stimulus, in sec", dtype="float32", required=True),
-                    NWBAttributeSpec(name="number_of_stimulus_presentation", doc="number of times the patterned stimulus is presented in one time interval", dtype="int8", required=True),
-                    NWBAttributeSpec(name="inter_stimulus_interval", doc="duration of the interval between each individual stimulus, in sec", dtype="float32", required=True)]
+        attributes=[
+            NWBAttributeSpec(
+                name="description", doc="description of the stimulus pattern", dtype="text", required=True
+            ),
+            NWBAttributeSpec(
+                name="duration", doc="the time duration for a single stimulus, in sec", dtype="float32", required=True
+            ),
+            NWBAttributeSpec(
+                name="number_of_stimulus_presentation",
+                doc="number of times the patterned stimulus is presented in one time interval",
+                dtype="int8",
+                required=True,
+            ),
+            NWBAttributeSpec(
+                name="inter_stimulus_interval",
+                doc="duration of the interval between each individual stimulus, in sec",
+                dtype="float32",
+                required=True,
+            ),
+        ],
     )
 
     SpiralScanning = NWBGroupSpec(
-        neurodata_type_def="SpiralScanning", 
-        neurodata_type_inc="OptogeneticStimulusPattern", 
+        neurodata_type_def="SpiralScanning",
+        neurodata_type_inc="OptogeneticStimulusPattern",
         doc="table of parameters defining the spiral scanning beam pattern",
-        attributes=[NWBAttributeSpec(name="diameter", doc="spiral diameter of each spot, in m", dtype="float32", required=True),
-                    NWBAttributeSpec(name="height", doc="spiral height of each spot, in m", dtype="float32", required=True),
-                    NWBAttributeSpec(name="number_of_revolutions", doc="number of turns within a spiral", dtype="int8", required=True)]
+        attributes=[
+            NWBAttributeSpec(name="diameter", doc="spiral diameter of each spot, in m", dtype="float32", required=True),
+            NWBAttributeSpec(name="height", doc="spiral height of each spot, in m", dtype="float32", required=True),
+            NWBAttributeSpec(
+                name="number_of_revolutions", doc="number of turns within a spiral", dtype="int8", required=True
+            ),
+        ],
     )
 
     TemporalFocusing = NWBGroupSpec(
-        neurodata_type_def="TemporalFocusing", 
-        neurodata_type_inc="OptogeneticStimulusPattern", 
+        neurodata_type_def="TemporalFocusing",
+        neurodata_type_inc="OptogeneticStimulusPattern",
         doc="table of parameters defining the temporal focusing beam-shaping",
-        attributes=[NWBAttributeSpec(name="lateral_point_spread_function", doc="estimated lateral spatial profile or point spread function, expressed as mean [um] ± s.d [um]", dtype="text", required=True),
-                    NWBAttributeSpec(name="axial_point_spread_function", doc="estimated axial spatial profile or point spread function, expressed as mean [um] ± s.d [um]", dtype="text", required=True)]
+        attributes=[
+            NWBAttributeSpec(
+                name="lateral_point_spread_function",
+                doc="estimated lateral spatial profile or point spread function, expressed as mean [um] ± s.d [um]",
+                dtype="text",
+                required=True,
+            ),
+            NWBAttributeSpec(
+                name="axial_point_spread_function",
+                doc="estimated axial spatial profile or point spread function, expressed as mean [um] ± s.d [um]",
+                dtype="text",
+                required=True,
+            ),
+        ],
     )
 
     # Stimulus site
-    
-    PatternedOptogeneticStimulusSite = NWBGroupSpec(
-        neurodata_type_def="PatternedOptogeneticStimulusSite", 
-        neurodata_type_inc="OptogeneticStimulusSite", 
-        doc="An extension of OptogeneticStimulusSite to include the geometrical representation for the stimulus.",
-        attributes=[NWBAttributeSpec(name="effector", doc="Light-activated effector protein expressed by the targeted cell (eg. ChR2)", dtype="text", required=False)]
-    )
 
+    PatternedOptogeneticStimulusSite = NWBGroupSpec(
+        neurodata_type_def="PatternedOptogeneticStimulusSite",
+        neurodata_type_inc="OptogeneticStimulusSite",
+        doc="An extension of OptogeneticStimulusSite to include the geometrical representation for the stimulus.",
+        attributes=[
+            NWBAttributeSpec(
+                name="effector",
+                doc="Light-activated effector protein expressed by the targeted cell (eg. ChR2)",
+                dtype="text",
+                required=False,
+            )
+        ],
+    )
 
     # Series
 
     PatternedOptogeneticSeries = NWBGroupSpec(
-        neurodata_type_def="PatternedOptogeneticSeries", 
-        neurodata_type_inc="NWBDataInterface", 
+        neurodata_type_def="PatternedOptogeneticSeries",
+        neurodata_type_inc="NWBDataInterface",
         doc="An extension of OptogeneticSeries to include the spatial patterns for the photostimulation.",
-        attributes=[NWBAttributeSpec(name="description", doc="description of the series", dtype="text", required=False),
-                    NWBAttributeSpec(name="rate", doc="series framerate", dtype="float32", required=False),
-                    NWBAttributeSpec(name="unit", doc="SI unit of data", dtype="text", default_value="watts",required=False)],
-        datasets=[NWBDatasetSpec(name='image_mask_roi',
-                                doc=("ROIs designated using a mask of size [width, height] "
-                                    "(2D recording) or [width, height, depth] (3D recording),"
-                                    " where for a given pixel a value of 1 indicates belonging"
-                                    " to the ROI. The depth value may represent to which"
-                                    " plane the roi belonged to"),
-                                quantity='?',
-                                dims=(('x', 'y'), ('x', 'y', 'z')),
-                                shape=([None] * 2, [None] * 3)),
-                NWBDatasetSpec(name='center_rois',
-                                doc=("ROIs designated as a list specifying the pixel and radio"
-                                    "([x1, y1, r1], or voxel ([x1, y1, z1, r1]) "
-                                    " of each ROI, where the items in the list are the "
-                                    " coordinates of the center of the ROI and the size of "
-                                    " the Roi given in radio size. The depth value may "
-                                    " represent to which plane the roi belonged to"),
-                                quantity='?',
-                                dims=(('number_rois', '3'), ('number_rois', '4')),
-                                shape=([None] * 3, [None] * 4)),
-                NWBDatasetSpec(name='pixel_rois',
-                                doc=("ROIs designated as a list specifying all the pixels"
-                                    "([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where"
-                                    " the items in the list are each of the pixels belonging"
-                                    " to the roi"),
-                                quantity='?',
-                                dims=(('number_rois', 'number_pixels', '2'),
-                                    ('number_rois', 'number_pixels', '3')),
-                                shape=([None] * 2, [None] * 3))],
-        links=[NWBLinkSpec(name="site", doc="link to the patterned stimulus site", target_type="PatternedOptogeneticStimulusSite"),
-               NWBLinkSpec(name="stimulus_pattern", doc="link to the stimulus pattern", target_type="OptogeneticStimulusPattern"),
-               NWBLinkSpec(name="device", doc="link to the device used to generate the photostimulation", target_type="Device"),
-               NWBLinkSpec(name="spatial_light_modulator", doc="link to the spatial modulator device", target_type="SpatialLightModulator"),
-               NWBLinkSpec(name="light_source", doc="link to the light source", target_type="LightSource")]
+        attributes=[
+            NWBAttributeSpec(name="description", doc="description of the series", dtype="text", required=False),
+            NWBAttributeSpec(name="rate", doc="series framerate", dtype="float32", required=False),
+            NWBAttributeSpec(name="unit", doc="SI unit of data", dtype="text", default_value="watts", required=False),
+        ],
+        datasets=[
+            NWBDatasetSpec(
+                name="image_mask_roi",
+                doc=(
+                    "ROIs designated using a mask of size [width, height] "
+                    "(2D recording) or [width, height, depth] (3D recording),"
+                    " where for a given pixel a value of 1 indicates belonging"
+                    " to the ROI. The depth value may represent to which"
+                    " plane the roi belonged to"
+                ),
+                quantity="?",
+                dims=(("x", "y"), ("x", "y", "z")),
+                shape=([None] * 2, [None] * 3),
+            ),
+            NWBDatasetSpec(
+                name="center_rois",
+                doc=(
+                    "ROIs designated as a list specifying the pixel and radio"
+                    "([x1, y1, r1], or voxel ([x1, y1, z1, r1]) "
+                    " of each ROI, where the items in the list are the "
+                    " coordinates of the center of the ROI and the size of "
+                    " the Roi given in radio size. The depth value may "
+                    " represent to which plane the roi belonged to"
+                ),
+                quantity="?",
+                dims=(("number_rois", "3"), ("number_rois", "4")),
+                shape=([None] * 3, [None] * 4),
+            ),
+            NWBDatasetSpec(
+                name="pixel_rois",
+                doc=(
+                    "ROIs designated as a list specifying all the pixels"
+                    "([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where"
+                    " the items in the list are each of the pixels belonging"
+                    " to the roi"
+                ),
+                quantity="?",
+                dims=(("number_rois", "number_pixels", "2"), ("number_rois", "number_pixels", "3")),
+                shape=([None] * 2, [None] * 3),
+            ),
+        ],
+        links=[
+            NWBLinkSpec(
+                name="site", doc="link to the patterned stimulus site", target_type="PatternedOptogeneticStimulusSite"
+            ),
+            NWBLinkSpec(
+                name="stimulus_pattern", doc="link to the stimulus pattern", target_type="OptogeneticStimulusPattern"
+            ),
+            NWBLinkSpec(
+                name="device", doc="link to the device used to generate the photostimulation", target_type="Device"
+            ),
+            NWBLinkSpec(
+                name="spatial_light_modulator",
+                doc="link to the spatial modulator device",
+                target_type="SpatialLightModulator",
+            ),
+            NWBLinkSpec(name="light_source", doc="link to the light source", target_type="LightSource"),
+        ],
     )
 
     # Light Modulator and Light Source devices
 
     SpatialLightModulator = NWBGroupSpec(
-        neurodata_type_def="SpatialLightModulator", 
-        neurodata_type_inc="Device", 
+        neurodata_type_def="SpatialLightModulator",
+        neurodata_type_inc="Device",
         doc="An extension of Device to include the Spatial Light Modulator metadata",
-        attributes=[NWBAttributeSpec(name="model", doc="Model of the Spatial Light Modulator", dtype="text"),
-                    NWBAttributeSpec(name="resolution", doc="Resolution of the Spatial Light Modulator in um", dtype="float32")]
+        attributes=[
+            NWBAttributeSpec(name="model", doc="Model of the Spatial Light Modulator", dtype="text"),
+            NWBAttributeSpec(name="resolution", doc="Resolution of the Spatial Light Modulator in um", dtype="float32"),
+        ],
     )
 
     LightSource = NWBGroupSpec(
-        neurodata_type_def="LightSource", 
-        neurodata_type_inc="Device", 
-        doc= "An extension of Device to include the Light Source metadata",
-        attributes=[NWBAttributeSpec(name="stimulation_wavelength", doc="stimulation wavelength in nm", dtype="float32", required=True),
-                    NWBAttributeSpec(name="filter_description", doc="description of the filter", dtype="text", required=True),
-                    NWBAttributeSpec(name="peak_power", doc="peak power of the stimulation in W", dtype="float32", required=False),
-                    NWBAttributeSpec(name="intensity", doc="intensity of the excitation in W/m^2", dtype="float32", required=False),
-                    NWBAttributeSpec(name="exposure_time", doc="exposure time of the sample", dtype="float32", required=False),
-                    NWBAttributeSpec(name="pulse_rate", doc="pulse rate of the light source, if the light source is a pulsed laser", dtype="float32", required=False)]
-        )
+        neurodata_type_def="LightSource",
+        neurodata_type_inc="Device",
+        doc="An extension of Device to include the Light Source metadata",
+        attributes=[
+            NWBAttributeSpec(
+                name="stimulation_wavelength", doc="stimulation wavelength in nm", dtype="float32", required=True
+            ),
+            NWBAttributeSpec(name="filter_description", doc="description of the filter", dtype="text", required=True),
+            NWBAttributeSpec(
+                name="peak_power", doc="peak power of the stimulation in W", dtype="float32", required=False
+            ),
+            NWBAttributeSpec(
+                name="intensity", doc="intensity of the excitation in W/m^2", dtype="float32", required=False
+            ),
+            NWBAttributeSpec(name="exposure_time", doc="exposure time of the sample", dtype="float32", required=False),
+            NWBAttributeSpec(
+                name="pulse_rate",
+                doc="pulse rate of the light source, if the light source is a pulsed laser",
+                dtype="float32",
+                required=False,
+            ),
+        ],
+    )
 
     # TODO: if your extension builds on another extension, include the namespace
     # of the other extension below
     # ns_builder.include_namespace("ndx-other-extension")
 
-
     # TODO: add all of your new data types to this list
-    new_data_types = [OptogeneticStimulusPattern, SpiralScanning, TemporalFocusing, PatternedOptogeneticStimulusSite, PatternedOptogeneticSeries, SpatialLightModulator, LightSource]
+    new_data_types = [
+        OptogeneticStimulusPattern,
+        SpiralScanning,
+        TemporalFocusing,
+        PatternedOptogeneticStimulusSite,
+        PatternedOptogeneticSeries,
+        SpatialLightModulator,
+        LightSource,
+    ]
 
     # export the spec to yaml files in the spec folder
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "spec"))

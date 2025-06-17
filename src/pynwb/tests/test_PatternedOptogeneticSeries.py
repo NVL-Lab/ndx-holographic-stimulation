@@ -3,7 +3,8 @@ from datetime import datetime
 from pynwb import NWBHDF5IO, NWBFile
 from pynwb.testing import TestCase, remove_test_file
 
-from ndx_holostim import PatternedOptogeneticSeries, OptogeneticStimulusPattern, LightSource, SpatialLightModulator, PatternedOptogeneticStimulusSite
+from ndx_holostim import PatternedOptogeneticSeries, OptogeneticStimulusPattern, LightSource
+from ndx_holostim import SpatialLightModulator, PatternedOptogeneticStimulusSite
 
 
 class TestPatternedOptogeneticSeriesConstructor(TestCase):
@@ -20,7 +21,7 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         #Add Light source
         self.light_source = LightSource(
             name="Testing LightSource",
-            stimulation_wavelenght=12.0,
+            stimulation_wavelength=12.0,
             filter_description="test 450–490 nm",
             peak_power=1.5,
             intensity=1.26,
@@ -105,7 +106,7 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
         self.device = self.nwbfile.create_device(name="device1")
         self.light_source = LightSource(
             name="Testing LightSource",
-            stimulation_wavelenght=12.0,
+            stimulation_wavelength=12.0,
             filter_description="test 450–490 nm",
             peak_power=1.5,
             intensity=1.26,

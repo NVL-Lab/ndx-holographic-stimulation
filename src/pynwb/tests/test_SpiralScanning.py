@@ -1,4 +1,3 @@
-import numpy as np
 from pynwb import NWBHDF5IO, NWBFile
 from pynwb.testing import TestCase, remove_test_file
 from datetime import datetime
