@@ -1,6 +1,6 @@
 groups:
 - neurodata_type_def: OptogeneticStimulusPattern
-  neurodata_type_inc: LabMetData
+  neurodata_type_inc: LabMetaData
   doc: Holographic excitation single ROI
   attributes:
   - name: description
@@ -11,7 +11,8 @@ groups:
     doc: the time duration for a single stimulus, in sec
   - name: number_of_stimulus_presentation
     dtype: int8
-    doc: number of times the patterned stimulus is presented in one time interval
+    doc: number of times the patterned stimulus is presented in one time 
+      interval
   - name: inter_stimulus_interval
     dtype: float32
     doc: duration of the interval between each individual stimulus, in sec
@@ -34,41 +35,41 @@ groups:
   attributes:
   - name: lateral_point_spread_function
     dtype: text
-    doc: estimated lateral spatial profile or point spread function, expressed as
-      mean [um] ± s.d [um]
+    doc: estimated lateral spatial profile or point spread function, expressed 
+      as mean [um] ± s.d [um]
   - name: axial_point_spread_function
     dtype: text
-    doc: estimated axial spatial profile or point spread function, expressed as mean
-      [um] ± s.d [um]
+    doc: estimated axial spatial profile or point spread function, expressed as 
+      mean [um] ± s.d [um]
 - neurodata_type_def: PatternedOptogeneticStimulusSite
   neurodata_type_inc: OptogeneticStimulusSite
-  doc: An extension of OptogeneticStimulusSite to include the geometrical representation
-    for the stimulus.
+  doc: An extension of OptogeneticStimulusSite to include the geometrical 
+    representation for the stimulus.
   attributes:
   - name: effector
     dtype: text
-    doc: Light-activated effector protein expressed by the targeted cell (eg. ChR2)
+    doc: Light-activated effector protein expressed by the targeted cell (eg. 
+      ChR2)
     required: false
 - neurodata_type_def: PatternedOptogeneticSeries
-  neurodata_type_inc: TimeSeries
-  doc: An extension of OptogeneticSeries to include the spatial patterns for the photostimulation.
+  neurodata_type_inc: NWBDataInterface
+  doc: An extension of OptogeneticSeries to include the spatial patterns for the
+    photostimulation.
   attributes:
+  - name: description
+    dtype: text
+    doc: description of the series
+    required: false
+  - name: rate
+    dtype: float32
+    doc: series framerate
+    required: false
   - name: unit
     dtype: text
     default_value: watts
     doc: SI unit of data
     required: false
   datasets:
-  - name: data
-    dtype: numeric
-    dims:
-    - num_times
-    - num_rois
-    shape:
-    - null
-    - null
-    doc: value of each of the conditions to be met by the cursor for it to be considered
-      hitting a target
   - name: image_mask_roi
     dims:
     - - x
@@ -82,10 +83,10 @@ groups:
     - - null
       - null
       - null
-    doc: ROIs designated using a mask of size [width, height] (2D recording) or [width,
-      height, depth] (3D recording), where for a given pixel a value of 1 indicates
-      belonging to the ROI. The depth value may represent to which plane the roi belonged
-      to
+    doc: ROIs designated using a mask of size [width, height] (2D recording) or 
+      [width, height, depth] (3D recording), where for a given pixel a value of 
+      1 indicates belonging to the ROI. The depth value may represent to which 
+      plane the roi belonged to
     quantity: '?'
   - name: center_rois
     dims:
@@ -96,13 +97,16 @@ groups:
     shape:
     - - null
       - null
+      - null
     - - null
       - null
       - null
-    doc: ROIs designated as a list specifying the pixel and radio ([x1, y1, r1], or
-      voxel ([x1, y1, z1, r1]) of each ROI, where the items in the list are the  coordinates
-      of the center of the ROI and the size of  the Roi given in radio size. The depth
-      value may  represent to which plane the roi belonged to
+      - null
+    doc: ROIs designated as a list specifying the pixel and radio([x1, y1, r1], 
+      or voxel ([x1, y1, z1, r1])  of each ROI, where the items in the list are 
+      the  coordinates of the center of the ROI and the size of  the Roi given 
+      in radio size. The depth value may  represent to which plane the roi 
+      belonged to
     quantity: '?'
   - name: pixel_rois
     dims:
@@ -118,9 +122,9 @@ groups:
     - - null
       - null
       - null
-    doc: ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1,
-      y1, z1]) of each ROI, where the items in the list are each of the pixels belonging
-      to the roi
+    doc: ROIs designated as a list specifying all the pixels([x1, y1], or voxel 
+      ([x1, y1, z1]) of each ROI, where the items in the list are each of the 
+      pixels belonging to the roi
     quantity: '?'
   links:
   - name: site
@@ -145,7 +149,6 @@ groups:
   - name: model
     dtype: text
     doc: Model of the Spatial Light Modulator
-    required: false
   - name: resolution
     dtype: float32
     doc: Resolution of the Spatial Light Modulator in um
@@ -154,7 +157,7 @@ groups:
   neurodata_type_inc: Device
   doc: An extension of Device to include the Light Source metadata
   attributes:
-  - name: stimulation_wavelenght
+  - name: stimulation_wavelength
     dtype: float32
     doc: stimulation wavelength in nm
   - name: filter_description
