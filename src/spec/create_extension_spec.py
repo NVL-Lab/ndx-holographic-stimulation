@@ -211,7 +211,6 @@ def main():
     # TODO: if your extension builds on another extension, include the namespace
     # of the other extension below
     # ns_builder.include_namespace("ndx-other-extension")
-
     # TODO: add all of your new data types to this list
     new_data_types = [
         OptogeneticStimulusPattern,

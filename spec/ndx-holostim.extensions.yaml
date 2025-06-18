@@ -152,6 +152,7 @@ groups:
   - name: resolution
     dtype: float32
     doc: Resolution of the Spatial Light Modulator in um
+    required: false
 - neurodata_type_def: LightSource
   neurodata_type_inc: Device
   doc: An extension of Device to include the Light Source metadata
