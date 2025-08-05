@@ -137,7 +137,7 @@ def main():
                 ),
                 quantity="?",
                 dims=(("number_rois", "3"), ("number_rois", "4")),
-                shape=([None] * 3, [None] * 4),
+                shape=([None] * 2, [None] * 3),
             ),
             NWBDatasetSpec(
                 name="pixel_rois",

@@ -97,9 +97,7 @@ groups:
     shape:
     - - null
       - null
-      - null
     - - null
-      - null
       - null
       - null
     doc: ROIs designated as a list specifying the pixel and radio([x1, y1, r1], 
