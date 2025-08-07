@@ -71,13 +71,13 @@ def main():
         attributes=[
             NWBAttributeSpec(
                 name='lateral_point_spread_function',
-                doc='estimated lateral spatial profile or point spread function, expressed as mean [um] ± s.d [um]',
+                doc='estimated lateral spatial profile or point spread function, expressed as mean [um] +/- s.d [um]',
                 dtype='text',
                 required=True,
             ),
             NWBAttributeSpec(
                 name='axial_point_spread_function',
-                doc='estimated axial spatial profile or point spread function, expressed as mean [um] ± s.d [um]',
+                doc='estimated axial spatial profile or point spread function, expressed as mean [um] +/- s.d [um]',
                 dtype='text',
                 required=True,
             ),
