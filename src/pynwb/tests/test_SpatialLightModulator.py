@@ -9,12 +9,12 @@ class TestSpatialLightModulatorConstructor(TestCase):
     def test_constructor(self):
         slm = SpatialLightModulator(
             name='SLM-A1',
-            model='Hamamatsu X13138',
+            model_name='Hamamatsu X13138',
             resolution=0.65
         )
 
         self.assertEqual(slm.name, 'SLM-A1')
-        self.assertEqual(slm.model, 'Hamamatsu X13138')
+        self.assertEqual(slm.model_name, 'Hamamatsu X13138')
         self.assertEqual(slm.resolution, 0.65)
 
 
@@ -33,7 +33,7 @@ class TestSpatialLightModulatorRoundtrip(TestCase):
     def test_roundtrip(self):
         slm = SpatialLightModulator(
             name='SLM-B2',
-            model='Meadowlark XY-Phase',
+            model_name='Meadowlark XY-Phase',
             resolution=1.2
         )
 
