@@ -145,8 +145,8 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
 
     def test_roundtrip(self):
         image_mask_roi = np.ones((4, 4))
-        center_rois = np.ones((4, 5, 6, 7))
-        pixel_rois = np.ones((4, 5, 6))
+        center_rois = np.ones((4, 5))
+        pixel_rois = np.ones((4, 5))
 
         pos = PatternedOptogeneticSeries(
             name='photostim_series',

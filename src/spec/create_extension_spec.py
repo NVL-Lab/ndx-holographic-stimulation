@@ -114,44 +114,34 @@ def main():
         datasets=[
             NWBDatasetSpec(
                 name='image_mask_roi',
-                doc=(
-                    'ROIs designated using a mask of size [width, height] '
-                    '(2D recording) or [width, height, depth] (3D recording),'
-                    ' where for a given pixel a value of 1 indicates belonging'
-                    ' to the ROI. The depth value may represent to which'
-                    ' plane the roi belonged to'
-                ),
+                doc=('ROIs designated using a mask of size [width, height] '
+                '(2D recording) or [width, height, depth] (3D recording),'
+                ' where for a given pixel a value of 1 indicates '
+                ' belonging to the ROI. The depth value may represent '
+                'to which plane the roi belonged to'),
                 quantity='?',
-                dims=(('x', 'y'), ('x', 'y', 'z')),
-                shape=None,
-            ),
+                dims=('number_rois', 'x', 'y', 'z'),
+                shape=None),
             NWBDatasetSpec(
-                name='center_rois',
-                doc=(
-                    'ROIs designated as a list specifying the pixel and radio'
-                    '([x1, y1, r1], or voxel ([x1, y1, z1, r1]) '
-                    ' of each ROI, where the items in the list are the '
-                    ' coordinates of the center of the ROI and the size of '
-                    ' the Roi given in radio size. The depth value may '
-                    ' represent to which plane the roi belonged to'
-                ),
-                quantity='?',
-                dims=(('number_rois', '3'), ('number_rois', '4')),
-                shape=None,
-            ),
+             name='center_rois',
+             doc=('ROIs designated as a list specifying the pixel and radio'
+                  '([x1, y1, r1], or voxel ([x1, y1, z1, r1]) '
+                  ' of each ROI, where the items in the list are the '
+                  ' coordinates of the center of the ROI and the size of '
+                  ' the Roi given in radio size. The depth value may '
+                  ' represent to which plane the roi belonged to'),
+             quantity='?',
+             dims=('number_rois', 'x1', 'y1', 'z1', 'r1'),
+             shape=None),
             NWBDatasetSpec(
                 name='pixel_rois',
-                doc=(
-                    'ROIs designated as a list specifying all the pixels'
-                    '([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where'
-                    ' the items in the list are each of the pixels belonging'
-                    ' to the roi'
-                ),
+                doc=('ROIs designated as a list specifying all the pixels'
+                     '([x1, y1], or voxel ([x1, y1, z1]) of each ROI, where'
+                     ' the items in the list are each of the pixels belonging'
+                     ' to the roi'),
                 quantity='?',
-                dims=(('number_rois', 'number_pixels', '2'), ('number_rois', 'number_pixels', '3')),
-                shape=None,
-            ),
-        ],
+                dims=('number_rois', 'number_pixels[x,y,z]'),
+                shape=None)],
         links=[
             NWBLinkSpec(
                 name='site', doc='link to the patterned stimulus site', target_type='PatternedOptogeneticStimulusSite'
