@@ -131,7 +131,7 @@ def main():
                   ' the Roi given in radio size. The depth value may '
                   ' represent to which plane the roi belonged to'),
              quantity='?',
-             dims=('number_rois', 'x1', 'y1', 'z1', 'r1'),
+             dims=('number_rois', '4'),
              shape=None),
             NWBDatasetSpec(
                 name='pixel_rois',
@@ -140,7 +140,7 @@ def main():
                      ' the items in the list are each of the pixels belonging'
                      ' to the roi'),
                 quantity='?',
-                dims=('number_rois', 'number_pixels[x,y,z]'),
+                dims=('number_rois', 'number_pixels', '3'),
                 shape=None)],
         links=[
             NWBLinkSpec(

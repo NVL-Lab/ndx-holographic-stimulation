@@ -35,11 +35,11 @@ groups:
   - name: lateral_point_spread_function
     dtype: text
     doc: estimated lateral spatial profile or point spread function, expressed as
-      mean [um] ï¿½ s.d [um]
+      mean [um] ± s.d [um]
   - name: axial_point_spread_function
     dtype: text
     doc: estimated axial spatial profile or point spread function, expressed as mean
-      [um] ï¿½ s.d [um]
+      [um] ± s.d [um]
 - neurodata_type_def: PatternedOptogeneticStimulusSite
   neurodata_type_inc: OptogeneticStimulusSite
   doc: An extension of OptogeneticStimulusSite to include the geometrical representation
@@ -85,14 +85,8 @@ groups:
   - name: center_rois
     dims:
     - number_rois
-    - x1
-    - y1
-    - z1
-    - r1
+    - '4'
     shape:
-    - null
-    - null
-    - null
     - null
     - null
     doc: ROIs designated as a list specifying the pixel and radio([x1, y1, r1], or
@@ -103,8 +97,10 @@ groups:
   - name: pixel_rois
     dims:
     - number_rois
-    - number_pixels[x,y,z]
+    - number_pixels
+    - '3'
     shape:
+    - null
     - null
     - null
     doc: ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1,

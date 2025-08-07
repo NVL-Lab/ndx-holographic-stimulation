@@ -61,9 +61,9 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         self.nwbfile.add_ogen_site(self.site)
 
     def test_constructor(self):
-        image_mask_roi = np.ones((4, 4))
-        center_rois = np.ones((4, 5, 6, 7))
-        pixel_rois = np.ones((4, 5, 6))
+        image_mask_roi = np.ones((5, 512, 521, 1))
+        center_rois = np.ones((5, 4)),
+        pixel_rois = np.ones((5, 20, 3))
 
         pos = PatternedOptogeneticSeries(
             name='photostim series',
@@ -144,9 +144,9 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
         remove_test_file(self.path)
 
     def test_roundtrip(self):
-        image_mask_roi = np.ones((4, 4))
-        center_rois = np.ones((4, 5))
-        pixel_rois = np.ones((4, 5))
+        image_mask_roi = np.ones((5, 512, 521, 1))
+        center_rois = np.ones((5, 4)),
+        pixel_rois = np.ones((5, 20, 3))
 
         pos = PatternedOptogeneticSeries(
             name='photostim_series',

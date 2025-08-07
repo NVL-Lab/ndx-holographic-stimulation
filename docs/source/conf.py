@@ -10,7 +10,7 @@ project = 'ndx-holostim'
 copyright = '2025, Andrea, Rishitesh'
 author = 'Andrea, Rishitesh'
 
-version = '0.1.0'
+version = '0.1.1'
 release = 'alpha'
 
 # -- General configuration ---------------------------------------------------
