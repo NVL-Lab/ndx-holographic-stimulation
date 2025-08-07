@@ -61,7 +61,7 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         self.nwbfile.add_ogen_site(self.site)
 
     def test_constructor(self):
-        image_mask_roi = np.ones((5, 512, 521, 1), dtype='bool')
+        image_mask_roi = np.ones((5, 512, 512, 1), dtype='bool')
         center_rois = np.ones((5, 4), dtype='uint16')
         pixel_rois = np.ones((5, 20, 3), dtype='uint16')
 
@@ -145,7 +145,7 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
 
     def test_roundtrip(self):
         image_mask_roi = np.ones((5, 512, 521, 1))
-        center_rois = np.ones((5, 4)),
+        center_rois = np.ones((5, 4))
         pixel_rois = np.ones((5, 20, 3))
 
         pos = PatternedOptogeneticSeries(
