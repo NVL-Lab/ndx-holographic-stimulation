@@ -35,11 +35,11 @@ groups:
   - name: lateral_point_spread_function
     dtype: text
     doc: estimated lateral spatial profile or point spread function, expressed as
-      mean [um] ± s.d [um]
+      mean [um] ï¿½ s.d [um]
   - name: axial_point_spread_function
     dtype: text
     doc: estimated axial spatial profile or point spread function, expressed as mean
-      [um] ± s.d [um]
+      [um] ï¿½ s.d [um]
 - neurodata_type_def: PatternedOptogeneticStimulusSite
   neurodata_type_inc: OptogeneticStimulusSite
   doc: An extension of OptogeneticStimulusSite to include the geometrical representation
