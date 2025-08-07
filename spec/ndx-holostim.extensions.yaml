@@ -75,11 +75,8 @@ groups:
       - y
       - z
     shape:
-    - - null
-      - null
-    - - null
-      - null
-      - null
+    - null
+    - null
     doc: ROIs designated using a mask of size [width, height] (2D recording) or [width,
       height, depth] (3D recording), where for a given pixel a value of 1 indicates
       belonging to the ROI. The depth value may represent to which plane the roi belonged
@@ -92,11 +89,8 @@ groups:
     - - number_rois
       - '4'
     shape:
-    - - null
-      - null
-    - - null
-      - null
-      - null
+    - null
+    - null
     doc: ROIs designated as a list specifying the pixel and radio([x1, y1, r1], or
       voxel ([x1, y1, z1, r1])  of each ROI, where the items in the list are the  coordinates
       of the center of the ROI and the size of  the Roi given in radio size. The depth
@@ -111,11 +105,8 @@ groups:
       - number_pixels
       - '3'
     shape:
-    - - null
-      - null
-    - - null
-      - null
-      - null
+    - null
+    - null
     doc: ROIs designated as a list specifying all the pixels([x1, y1], or voxel ([x1,
       y1, z1]) of each ROI, where the items in the list are each of the pixels belonging
       to the roi

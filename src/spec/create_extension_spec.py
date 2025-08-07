@@ -123,7 +123,7 @@ def main():
                 ),
                 quantity='?',
                 dims=(('x', 'y'), ('x', 'y', 'z')),
-                shape=([None] * 2, [None] * 3),
+                shape=None,
             ),
             NWBDatasetSpec(
                 name='center_rois',
@@ -137,7 +137,7 @@ def main():
                 ),
                 quantity='?',
                 dims=(('number_rois', '3'), ('number_rois', '4')),
-                shape=([None] * 2, [None] * 3),
+                shape=None,
             ),
             NWBDatasetSpec(
                 name='pixel_rois',
@@ -149,7 +149,7 @@ def main():
                 ),
                 quantity='?',
                 dims=(('number_rois', 'number_pixels', '2'), ('number_rois', 'number_pixels', '3')),
-                shape=([None] * 2, [None] * 3),
+                shape=None,
             ),
         ],
         links=[
