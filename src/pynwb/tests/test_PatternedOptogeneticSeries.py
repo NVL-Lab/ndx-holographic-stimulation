@@ -2,6 +2,7 @@ import numpy as np
 from datetime import datetime
 from pynwb import NWBHDF5IO, NWBFile
 from pynwb.testing import TestCase, remove_test_file
+from pynwb.device import Device
 
 from ndx_holostim import PatternedOptogeneticSeries, OptogeneticStimulusPattern, LightSource
 from ndx_holostim import SpatialLightModulator, PatternedOptogeneticStimulusSite

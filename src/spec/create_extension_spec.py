@@ -11,7 +11,7 @@ def main():
     # these arguments were auto-generated from your cookiecutter inputs
     ns_builder = NWBNamespaceBuilder(
         name='''ndx-holostim''',
-        version='''0.1.0''',
+        version='''0.1.1''',
         doc='''Extension to include Holographic Stimulation experiments''',
         author=[
             'Andrea',
@@ -178,7 +178,7 @@ def main():
         neurodata_type_inc='Device',
         doc='An extension of Device to include the Spatial Light Modulator metadata',
         attributes=[
-            NWBAttributeSpec(name='model', doc='Model of the Spatial Light Modulator', dtype='text'),
+            NWBAttributeSpec(name='model_name', doc='Model of the Spatial Light Modulator', dtype='text'),
             NWBAttributeSpec(name='resolution', doc='Resolution of the Spatial Light Modulator in um', dtype='float32'),
         ],
     )
