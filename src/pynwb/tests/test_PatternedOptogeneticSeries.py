@@ -62,7 +62,7 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
 
     def test_constructor(self):
         image_mask_roi = np.ones((5, 512, 521, 1), dtype='bool')
-        center_rois = np.ones((5, 4), dtype='uint16'),
+        center_rois = np.ones((5, 4), dtype='uint16')
         pixel_rois = np.ones((5, 20, 3), dtype='uint16')
 
         pos = PatternedOptogeneticSeries(
