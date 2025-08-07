@@ -33,7 +33,7 @@ class TestPatternedOptogeneticSeriesConstructor(TestCase):
         # Add spatial light modulator
         self.spatial_light_modulator = SpatialLightModulator(
             name='SLM-A1',
-            model='Hamamatsu X13138',
+            model_name='Hamamatsu X13138',
             resolution=0.65
         )
         self.nwbfile.add_device(self.spatial_light_modulator)
@@ -116,7 +116,7 @@ class TestPatternedOptogeneticSeriesRoundtrip(TestCase):
 
         self.spatial_light_modulator = SpatialLightModulator(
             name='SLM-A1',
-            model='Hamamatsu X13138',
+            model_name='Hamamatsu X13138',
             resolution=0.65
         )
         self.nwbfile.add_device(self.spatial_light_modulator)
