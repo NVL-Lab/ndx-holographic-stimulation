@@ -3,8 +3,8 @@ from pynwb import NWBHDF5IO
 from pynwb.testing import TestCase, remove_test_file
 from pynwb.testing.mock.file import mock_NWBFile
 
-
 from ndx_holostim import OptogeneticStimulusPattern
+
 
 class TestOptogeneticStimulusPatternConstructor(TestCase):
     """Unit test for constructing OptogeneticStimulusPattern."""
@@ -41,7 +41,7 @@ class TestOptogeneticStimulusPatternRoundtrip(TestCase):
             identifier='test_id',
             session_start_time=datetime.now().astimezone()  # Avoid timezone warning
         )
-        self.path = "test_optostim.nwb"  # NWB file will be saved to disk
+        self.path = 'test_optostim.nwb'  # NWB file will be saved to disk
 
     def tearDown(self):
         remove_test_file(self.path)
@@ -61,12 +61,8 @@ class TestOptogeneticStimulusPatternRoundtrip(TestCase):
         with NWBHDF5IO(self.path, mode='w') as io:
             io.write(self.nwbfile)
 
-            
-
         # Read back and print contents
         with NWBHDF5IO(self.path, mode='r', load_namespaces=True) as io:
             read_nwbfile = io.read()
             read_pattern = read_nwbfile.lab_meta_data['stim1']
             self.assertContainerEqual(pattern, read_pattern)
-            
-            
